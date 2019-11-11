@@ -58,8 +58,6 @@ def split_trianing_testing(images,image_path,subject):
         else:
         	file = os.path.join(PATH,trainset,subject,image)
        		shutil.move(os.path.join(image_path,image),file)
-
- 
     no_trian_data = int(0.6 * len(ears))
     for i,_ in enumerate(ears):
        	if (i <= no_trian_data-1):
