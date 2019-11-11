@@ -46,7 +46,7 @@ def createFolder(folderName):
         try:
             os.makedirs(folderName)
         except OSError as exc:  # Guard against race condition
-            if exc.errno != errno.EEXIST:
+            if exc.errno != exc.errno.EEXIST:
                 raise
 
 def split_trianing_testing(images,image_path,subject):
@@ -61,10 +61,8 @@ def split_trianing_testing(images,image_path,subject):
 
  
     no_trian_data = int(0.6 * len(ears))
-    for i in range(len(ears)):
-
+    for i,_ in enumerate(ears):
        	if (i <= no_trian_data-1):
-       		
        		file = os.path.join(PATH,trainset,subject,ears[i])
        		shutil.move(os.path.join(image_path,ears[i]),file)
        	else:
