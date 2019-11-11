@@ -38,7 +38,6 @@ def data_au(x,f):
 def createFolder(folderName):
     """
     Safely create folder when needed
-    
     :param folderName : the directory that you  want to safely create
     :return: None
     """
