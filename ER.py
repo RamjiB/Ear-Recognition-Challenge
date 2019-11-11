@@ -1,6 +1,6 @@
 
 import os,shutil
-import cv2,keras,plotly
+import cv2,keras
 import numpy as np
 from imgaug import augmenters as iaa
 import skimage.io as skio
@@ -52,7 +52,6 @@ def createFolder(folderName):
 def split_trianing_testing(images,image_path,subject):
     #take only .png files and store it in a list
     ears = []
-    annotation = []
     for image in images:
         if (image.endswith(".png")):
             ears.append(image)
@@ -62,18 +61,17 @@ def split_trianing_testing(images,image_path,subject):
 
  
     no_trian_data = int(0.6 * len(ears))
-    for i in range(0,len(ears)):
+    for i in range(len(ears)):
 
        	if (i <= no_trian_data-1):
        		
        		file = os.path.join(PATH,trainset,subject,ears[i])
        		shutil.move(os.path.join(image_path,ears[i]),file)
        	else:
-       		
        		file = os.path.join(PATH,testset,subject,ears[i])
        		shutil.move(os.path.join(image_path,ears[i]),file)
 
-#take 150 subjects from given trianing dataset and split 60-40 from every subject and 
+#take 150 subjects from given trianing dataset and split 60-40 from every subject and
 #for training and testing purpose
 def creating_dataset_without_aug():
 	mode = tr_FN
@@ -106,7 +104,7 @@ def data_after_augmentation():
 				img = cv2.resize(cv2.imread(file),(100,100))
 				data_au(img,os.path.splitext(file)[0])
 
-#function for collecting final dataset 
+#function for collecting final dataset
 def data(mode):
 	print('train data')
 	total_images = []
@@ -223,6 +221,6 @@ model.fit(x_train, y_train,
 results = np.argmax(model.predict(x_test),axis = 1)
 results = np.reshape(results,(len(results),1))
 
-#accuracy 
+#accuracy
 
 print("Accuracy: ",(sum(results == y_test))/len(results) * 100)
